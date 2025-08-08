@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currency Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .converter input,
+    .converter select,
+    .converter button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .converter button {
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    .converter button:hover {
+      background: #45a049;
+    }
+
+    .converter #result {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    #history {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>World Explorer Currency Converter! 🌍💱</h1>
+    <div class="converter">
+      <input type="number" id="amount" placeholder="Enter amount" />
+      <div class="dropdowns">
+        <select id="from-currency"></select>
+        <span>➔</span>
+        <select id="to-currency"></select>
+      </div>
+      <button onclick="convertCurrency()">Convert</button>
+      <p id="result"></p>
+      <div id="history"></div>
+    </div>
+    <footer>
+      <small>Rates by <a href="https://open.er-api.com/" target="_blank">ExchangeRate API</a></small>
+    </footer>
+  </div>
+
+  <script>
+    const fromCurrency = document.getElementById("from-currency");
+    const toCurrency = document.getElementById("to-currency");
+    const result = document.getElementById("result");
+    const history = document.getElementById("history");
+    const amountInput = document.getElementById("amount");
+
+    const API_URL = "https://open.er-api.com/v6/latest/";
+
+    const currencies = ["USD", "EUR", "INR", "JPY", "GBP", "CAD", "AUD", "CNY"];
+
+    window.onload = () => {
+      currencies.forEach((currency) => {
+        fromCurrency.innerHTML += `<option value="${currency}">${currency}</option>`;
+        toCurrency.innerHTML += `<option value="${currency}">${currency}</option>`;
+      });
+
+      fromCurrency.value = "USD";
+      toCurrency.value = "INR";
+    };
+
+    function convertCurrency() {
+      const amount = parseFloat(amountInput.value);
+      const from = fromCurrency.value;
+      const to = toCurrency.value;
+
+      if (isNaN(amount) || amount <= 0) {
+        result.textContent = "Please enter a valid amount.";
+        return;
+      }
+
+      fetch(`${API_URL}${from}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const rate = data.rates[to];
+          const converted = (amount * rate).toFixed(2);
+          result.textContent = `${amount} ${from} = ${converted} ${to}`;
+          addToHistory(amount, from, to, converted);
+        })
+        .catch(() => {
+          result.textContent = "Conversion failed. Please try again.";
+        });
+    }
+
+    function addToHistory(amount, from, to, converted) {
+      const item = document.createElement("p");
+      item.textContent = `${amount} ${from} ➔ ${converted} ${to}`;
+      history.prepend(item);
+    }
+  </script>
+</body>
+</html>
