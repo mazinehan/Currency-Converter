@@ -1,0 +1,58 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f8ff;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.converter input,
+.converter select,
+.converter button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.converter button {
+  background: #4CAF50;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.converter button:hover {
+  background: #45a049;
+}
+
+.converter #result {
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#history {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #555;
+}
