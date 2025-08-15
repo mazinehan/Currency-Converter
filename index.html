@@ -93,8 +93,7 @@
 
     const API_URL = "https://open.er-api.com/v6/latest/";
 
-    const currencies = ["USD", "EUR", "INR", "JPY", "GBP", "CAD", "AUD", "CNY"];
-
+    const currenies = ["USD", "EUR", "INR", "JPY", "GBP", "CAD", "ALL", "AUD", "CNY", "AED", "ARS", "BGN ", "BDT", "BHD", "BRL", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "GBP", "HKD", "HUF", "IDR", "ILS", "ISK", "KRW", "MAD", "MXN", "MXV", "MYR", "NAD", "NGN", "NOK", "NZD", "OTH", "PEN", "PHP", "PLN", "RON", "RUB", "SAR", "SEK", "SGD", "THB", "TRY", "TWD", "VES", "VND", "XOF", "ZAR"];
     window.onload = () => {
       currencies.forEach((currency) => {
         fromCurrency.innerHTML += `<option value="${currency}">${currency}</option>`;
@@ -136,3 +135,4 @@
   </script>
 </body>
 </html>
+
